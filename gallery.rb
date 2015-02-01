@@ -1,15 +1,6 @@
 #[v0.1] Output the filename as an absolute path
-
-#absolute_path = File.absolute_path("______")
-def absolute_path(file_name)  #takes file, "bunny-1.jpg"
-  File.absolute_path(file_name) #gets the absolute path, starts at the root directory
-end
-
-#Extra way to run a test
-def run_test
-  photo_file = "bunny-1.jpg"
-  p absolute_path(photo_file) == "/Users/Tiao/photo-gallery-cli/bunny-1.jpg"
-  p image_tag(photo_file) == "<img src=\"/Users/Tiao/photo-gallery-cli/bunny-1.jpg\">"
+def absolute_path(file)  #takes file, "bunny-1.jpg"
+  File.absolute_path(file) #gets the absolute path, starts at the root directory
 end
 
 # if ARGV.size == 0
@@ -23,19 +14,49 @@ end
 # end
 
 #[v0.2] Output a full image tag (<img>)
-def image_tag(file_name)
-  image_tag = "<img src=\"#{absolute_path(file_name)}\">"
-  return image_tag
+def image_tag(photo_path)
+  image_tag_source = "<img src=\"#{absolute_path(photo_path)}\">"
+  return image_tag_source
 end
 
-#Sanity Checks
-file_name = ARGV[0]
-puts image_tag (absolute_path(file_name))
+#[v0.3] Generate a full, valid HTML page
+def generate_HTML_page(image_tag)
+  full_html_output = <<-HTML
+<!DOCTYPE html>
+  <html>
+<head>
+<title>My Gallery</title>
+</head>
+<body>
+<h1>My Gallery</h1>
+#{image_tag}
+</body>
+</html>
+HTML
 
-run_test
+  return full_html_output
+end
 
-# p image_tag("bunny-10.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/bunny-10.jpg\">"
-# p absolute_path("bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/bunny-1.jpg"
-# p absolute_path("bunny-2.jpg") == "/Users/Tiao/photo-gallery-cli/bunny-2.jpg"
-# p absolute_path("bunny-3.jpg") == "/Users/Tiao/photo-gallery-cli/bunny-3.jpg"
-# p absolute_path("bunny-4.jpg") == "/Users/Tiao/photo-gallery-cli/bunny-4.jpg"
+#=================================================================================
+#SANITY CHECKS
+
+  photo_file = ARGV[0]
+
+  #[v0.1]
+  p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
+  #[v0.2]
+  p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
+
+  #[v0.3]
+  absolute_path = File.absolute_path(photo_file)
+  image_tag_source_path = image_tag(absolute_path)
+  puts generate_HTML_page(image_tag_source_path)
+
+# if __FILE__ == $PROGRAM_NAME
+#   photo_file = ARGV[0]
+
+#   ARGV.each do |file|
+#     filename = absolute_path(file)
+#     puts image_tag(file_name)
+#   end
+# end
