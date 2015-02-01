@@ -41,8 +41,29 @@ full_html = <<-HTML
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+h1 {
+  color: #000;
+  font-family: Georgia;
+  font-size: 20px;
+  line-height: 22px;
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.01em;
+  word-spacing: -0.1em;
+}
+img {
+  width: 225px;
+  height: 225px;
+  border-color: #fff;
+  border-width: 1px;
+  box-shadow: 1px 1px 2px lightgray;
+}
+</style>
 <title>My Gallery</title>
 </head>
+<body>
+<h1>My Gallery</h1>
 HTML
   return full_html
 end
@@ -62,6 +83,8 @@ full_html = <<-HTML
 HTML
   return full_html
 end
+
+#[v0.5] Make it look nicer with CSS
 
 #=================================================================================
 #SANITY CHECKS
@@ -84,4 +107,3 @@ end
     image_tag_list
     puts bottom_html
   end
-
