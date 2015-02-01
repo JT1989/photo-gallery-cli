@@ -99,11 +99,14 @@ end
 
 #copies bunny-1.jpg bunny-2.jpg bunny-3.jpg bunny-4.jpg from /photos
 #into public/imgs folder
-def copies_file_into_subdirectory
-  FileUtils.cp_r 'photos/.', 'public/imgs'
+def copies_file_into_subdirectory(file)
+  FileUtils.cp_r "photos/.", "public/imgs"
 end
 
-
+#Create a gallery.html file
+def create_and_write_to_file(file)
+  File.open("public/gallery.html", "w")
+end
 
 #=================================================================================
 #SANITY CHECKS
@@ -128,7 +131,8 @@ end
   # end
 
 #[v1.0]
-  if __FILE__ == $PROGRAM_NAME
-    create_new_directory
-    copies_file_into_subdirectory
-  end
+if __FILE__ == $PROGRAM_NAME
+  create_new_directory
+  copies_file_into_subdirectory
+  create_and_write_to_file
+end
