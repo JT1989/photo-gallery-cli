@@ -86,15 +86,36 @@ end
 
 #[v0.5] Make it look nicer with CSS
 
+#[v1.0] Generate a gallery directory
+#create a new directory called public
+# create and write to a file
+#copy files from one directory to another
+
+def create_new_directory
+  Dir.mkdir("public") #=> Creates a directory called "Public"
+  Dir.mkdir("public/imgs") #=> Creates a directory called "Public/imgs"
+
+
+
+
+#bunny-1.jpg bunny-2.jpg bunny-3.jpg bunny-4.jpg
+end
+
+def copies_file_into_subdirectory
+  FileUtils.cp_r 'photos/.', 'public/imgs'  #copies images from photos folder to copies files into public/imgs folder
+end
+
+
+
 #=================================================================================
 #SANITY CHECKS
 
-  photo_file = ARGV[0]
+  #photo_file = ARGV[0]
 
   #[v0.1]
-  p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
+  # p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
   #[v0.2]
-  p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
+  # p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
 
   #[v0.3]
   # absolute_path = File.absolute_path(photo_file)
@@ -102,8 +123,14 @@ end
   # puts generate_HTML_page(image_tag_source_path)
 
   #[v0.4]
+  # if __FILE__ == $PROGRAM_NAME
+  #   puts top_html
+  #   image_tag_list
+  #   puts bottom_html
+  # end
+
+#[v1.0]
   if __FILE__ == $PROGRAM_NAME
-    puts top_html
-    image_tag_list
-    puts bottom_html
+    create_new_directory
+    copies_file_into_subdirectory
   end
