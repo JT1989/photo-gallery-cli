@@ -95,14 +95,12 @@ def create_new_directory
   Dir.mkdir("public") #=> Creates a directory called "Public"
   Dir.mkdir("public/imgs") #=> Creates a directory called "Public/imgs"
 
-
-
-
-#bunny-1.jpg bunny-2.jpg bunny-3.jpg bunny-4.jpg
 end
 
+#copies bunny-1.jpg bunny-2.jpg bunny-3.jpg bunny-4.jpg from /photos
+#into public/imgs folder
 def copies_file_into_subdirectory
-  FileUtils.cp_r 'photos/.', 'public/imgs'  #copies images from photos folder to copies files into public/imgs folder
+  FileUtils.cp_r 'photos/.', 'public/imgs'
 end
 
 
