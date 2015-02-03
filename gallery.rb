@@ -3,15 +3,15 @@ def absolute_path(file)  #takes file, "bunny-1.jpg"
   File.absolute_path(file) #gets the absolute path, starts at the root directory
 end
 
-# if ARGV.size == 0
-#     puts "Welcome! I can fetch the absolute path for you. What is the filename?"
-#     puts "For example, type: bunny-4.jpg"
-#     file_name = gets.chomp
-#     puts absolute_path(file_name)
-#   else
-#     file_name = ARGV[0]
-#     puts absolute_path(file_name)
-# end
+if ARGV.size == 0
+    puts "Welcome! I can fetch the absolute path for you. What is the filename?"
+    puts "For example, type: bunny-4.jpg"
+    file_name = gets.chomp
+    puts absolute_path(file_name)
+  else
+    file_name = ARGV[0]
+    puts absolute_path(file_name)
+end
 
 #[v0.2] Output a full image tag (<img>)
 def image_tag(file_name)
@@ -19,20 +19,21 @@ def image_tag(file_name)
 end
 
 # #[v0.3] Generate a full, valid HTML page
-# def generate_HTML_page(image_tag)
-# full_html = <<-HTML
-# <!DOCTYPE html>
-# <html>
-# <head>
-# <title>My Gallery</title>
-# </head>
-# <body>
-# <h1>My Gallery</h1>
-# </body>
-# </html>
-# HTML
-#   return full_html
-# end
+def generate_HTML_page(image_tag)
+  full_html = <<-HTML
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <title>My Gallery</title>
+      </head>
+      <body>
+        <h1>My Gallery</h1>
+      </body>
+    </html>
+  HTML
+
+  return full_html
+end
 
 # #[v0.4] Support multiple images
 # def top_html
@@ -124,12 +125,12 @@ end
   file_name = ARGV[0]
 
   puts image_tag(absolute_path(file_name))
-  p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
+  p image_tag(absolute_path("photos/bunny-1.jpg")) == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
 
-#   #[v0.3]
-#   # absolute_path = File.absolute_path(photo_file)
-#   # image_tag_source_path = image_tag(absolute_path)
-#   # puts generate_HTML_page(image_tag_source_path)
+  # [v0.3]
+  # absolute_path = File.absolute_path(photo_file)
+  # image_tag_source_path = image_tag(absolute_path)
+  # puts generate_HTML_page(image_tag_source_path)
 
 #   #[v0.4]
 # if __FILE__ == $PROGRAM_NAME
