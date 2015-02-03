@@ -3,21 +3,20 @@ def absolute_path(file)  #takes file, "bunny-1.jpg"
   File.absolute_path(file) #gets the absolute path, starts at the root directory
 end
 
-if ARGV.size == 0
-    puts "Welcome! I can fetch the absolute path for you. What is the filename?"
-    puts "For example, type: bunny-4.jpg"
-    file_name = gets.chomp
-    puts absolute_path(file_name)
-  else
-    file_name = ARGV[0]
-    puts absolute_path(file_name)
-end
-
-# #[v0.2] Output a full image tag (<img>)
-# def image_tag(photo_path)
-#   image_tag_source = "<img src=\"#{absolute_path(photo_path)}\">"
-#   return image_tag_source
+# if ARGV.size == 0
+#     puts "Welcome! I can fetch the absolute path for you. What is the filename?"
+#     puts "For example, type: bunny-4.jpg"
+#     file_name = gets.chomp
+#     puts absolute_path(file_name)
+#   else
+#     file_name = ARGV[0]
+#     puts absolute_path(file_name)
 # end
+
+#[v0.2] Output a full image tag (<img>)
+def image_tag(file_name)
+  return "<img src=\"#{file_name}\">"
+end
 
 # #[v0.3] Generate a full, valid HTML page
 # def generate_HTML_page(image_tag)
@@ -118,12 +117,14 @@ end
 # #=================================================================================
 # #SANITY CHECKS
 
-#   #photo_file = ARGV[0]
+  # [v0.1]
+  p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
+  # [v0.2]
 
-#   #[v0.1]
-#   # p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
-#   #[v0.2]
-#   # p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
+  file_name = ARGV[0]
+
+  puts image_tag(absolute_path(file_name))
+  p image_tag("photos/bunny-1.jpg") == "<img src=\"/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg\">"
 
 #   #[v0.3]
 #   # absolute_path = File.absolute_path(photo_file)
