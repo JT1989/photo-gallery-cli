@@ -86,39 +86,36 @@ def bottom_html
   return full_html
 end
 
-# #[v0.5] Make it look nicer with CSS
+#[v0.5] Make it look nicer with CSS
 
-# #[v1.0] Generate a gallery directory
-# #create a new directory called public
-# # create and write to a file
-# #copy files from one directory to another
+#[v1.0] Generate a gallery directory
+#create a new directory called public
+# create and write to a file
+#copy files from one directory to another
 
-# def create_new_directory()
-#   Dir.mkdir("public") #=> Creates a directory called "Public"
-#   Dir.mkdir("public/imgs") #=> Creates a directory called "Public/imgs"
-# end
+def create_new_directory()
+  unless Dir.exists?("public")
+  Dir.mkdir("public") #=> Creates a directory called "Public"
+  Dir.mkdir("public/imgs") #=> Creates a directory called "Public/imgs"
+  end
+end
 
+require 'fileutils'
+#Create a gallery.html file
+def create_and_write_to_file(filename, content)
+  File.open("public/gallery.html", "w") do |file|
+    file.write(top_html)
+    file.write(image_tag_list(ARGV))
+    file.write(bottom_html)
+  end
+end
 
-# #Create a gallery.html file
-# def create_and_write_to_file(files)
-#   create_html_file = File.open("public/gallery.html", "w")
-#   create_html_file.puts(top_html)
-#   create_html_file.puts(image_tag_list(files))
-#   create_html_file.puts(bottom_html)
-# end
+def copy_to_directories
+  FileUtils.cp_r 'photos/.', 'public/imgs'
+end
 
-# #copies bunny-1.jpg bunny-2.jpg bunny-3.jpg bunny-4.jpg from /photos
-# #into public/imgs folder
-# require 'fileutils'
-
-# def copy_photo_files
-#   FileUtils.cp_r 'photos/.', 'public/imgs'
-# end
-
-
-
-# #=================================================================================
-# #SANITY CHECKS
+#=================================================================================
+#SANITY CHECKS
 
   # [v0.1]
   p absolute_path("photos/bunny-1.jpg") == "/Users/Tiao/photo-gallery-cli/photos/bunny-1.jpg"
@@ -141,12 +138,9 @@ end
     puts bottom_html
   end
 
-
-# #[v1.0]
-# if __FILE__ == $PROGRAM_NAME
-#   files = ARGV
-
-#   create_new_directory
-#   create_and_write_to_file(files)
-#   copy_photo_files
-# end
+#[v1.0]
+  if __FILE__ == $PROGRAM_NAME
+    create_new_directory
+    create_and_write_to_file("public/gallery.html", ARGV)
+    copy_to_directories
+  end
